@@ -1,0 +1,19 @@
+/* Header on expanded content */
+
+/*::ng-deep .p-panelmenu .p-panelmenu-header.p-highlight>a {*/
+/*  background-color: pink;*/
+/*}*/
+
+
+/* Header on hover, but not expanded */
+
+::ng-deep .p-panelmenu .p-panelmenu-header:not(.p-highlight):not(.p-disabled)>a:hover {
+  background-color: #c4f417;
+}
+
+
+/* Header on hover, but ALSO Expanded */
+
+::ng-deep .p-panelmenu .p-panelmenu-header.p-highlight:not(.p-disabled)>a:hover {
+  background-color: yellow;
+}

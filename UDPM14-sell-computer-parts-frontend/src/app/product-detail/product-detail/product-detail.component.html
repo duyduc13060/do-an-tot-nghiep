@@ -1,0 +1,80 @@
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+    <h1 class="font-weight-semi-bold text-uppercase">Product Detail</h1>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Shop Detail Start -->
+<div class="container-fluid py-5">
+  <div class="row px-xl-5">
+    <div class="col-lg-5 pb-5">
+      <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let pro of productImage" class="carousel-item active" data-bs-interval="3000">
+            <img src="{{ pro.imageLink }}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-7 pb-5">
+      <app-product-detail-case></app-product-detail-case>
+      <app-product-detail-chip></app-product-detail-chip>
+      <app-product-detail-ram></app-product-detail-ram>
+      <app-product-detail-hd></app-product-detail-hd>
+      <app-product-detail-vga></app-product-detail-vga>
+      <app-product-detail-psu></app-product-detail-psu>
+    </div>
+
+  </div>
+
+</div>
+<!-- Shop Detail End -->
+
+<!-- Products Start -->
+<div class="container-fluid py-5">
+  <div class="text-center mb-4">
+    <h2 class="section-title px-5"><span class="px-2"> Similar Products </span></h2>
+  </div>
+  <div class="row px-xl-5">
+    <div class="col">
+      <div class="owl-carousel related-carousel row">
+        <div *ngFor="let pro of proCates" class="card product-item border-0 col-lg-3 col-md-6 col-sm-12 pb-1">
+          <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+            <img class="img-fluid w-100" src="{{ pro.imageLink }}" alt="">
+          </div>
+          <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+            <h6 class="text-truncate mb-3">{{ pro.name }}</h6>
+            <div class="d-flex justify-content-center">
+              <h6 class="text-muted ml-2"><del>{{ pro.price | number }} VND</del></h6>
+              <h6 class="text-danger ml-2">{{ pro.discount | number }} VND</h6>
+            </div>
+          </div>
+          <div class="card-footer text-center justify-content-between bg-light border">
+            <a [routerLink]="['/product-detail', pro.id]" (click)="ngOnInit()" class="btn border mr-3"><i
+                class="fas fa-eye text-primary"></i></a>
+            <a (click)="createFavourite(pro)" class="btn border mr-3"><i
+                class="fas fa-heart text-primary"></i></a>
+            <a (click)="addToCart(pro)" class="btn border">
+              <i class="fas fa-shopping-cart text-primary"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Products End -->

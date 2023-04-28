@@ -1,0 +1,49 @@
+package com.example.udpm14sellcomputerpartsbackend.model.dto;
+
+import com.example.udpm14sellcomputerpartsbackend.contants.RegexContants;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateOrderReq {
+
+
+    private String fullname;
+
+    @NotBlank(message = "province is not empty")
+    private String province;
+
+    @NotBlank(message = "district is not empty")
+    private String district;
+
+    @NotBlank(message = "ward is not empty")
+    private String ward;
+
+    @NotBlank
+    private String address;
+
+    @NotBlank(message = "Phone number is not empty")
+    @Pattern(regexp = RegexContants.PHONE_REGEX,message = "phone number validate failed")
+    @Length(max = 10)
+    private String phone;
+
+    private String description;
+
+    private Integer shipping;
+
+    @JsonProperty("payment_id")
+    private Long paymentId;
+
+    @JsonProperty("coupon_code")
+    private String couponCode;
+
+}

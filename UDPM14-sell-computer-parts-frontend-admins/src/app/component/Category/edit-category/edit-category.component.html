@@ -1,0 +1,64 @@
+<div id="chipAdd" class="mt-5">
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+
+  <div>
+    <a [routerLink]="'/list-category'" class="btn btn-info mb-3 mt-3">List Category</a>
+  </div>
+
+  <form [formGroup]="categoryformEdit" (ngSubmit)="updateCategory()">
+    <div class="card">
+      <div class="card-header">
+        <h5>Update category</h5>
+      </div>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col">
+
+            <div class="text-center">
+              <img [src]="preview" class="img-thumbnail w-25" alt="...">
+            </div>
+
+            <div class="form-group mt-2">
+              <div class="mb-3">
+                <label class="form-label">Choosse file</label>
+                <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group mt-2">
+              <label>Name</label>
+              <input type="text" class="form-control" [ngModel]="category.name" formControlName="name">
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Status</label>
+              <select class="form-select" [ngModel]="category.status" formControlName="status"
+                aria-label="Default select example">
+                <option value="INACTIVE">Inactive</option>
+                <option value="ACTIVE">Active</option>
+                <option value="DELETED">Deleted</option>
+              </select>
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Group component</label>
+              <select class="form-select" [ngModel]="category.groupId" formControlName="groupId"
+                aria-label="Default select example">
+                <option *ngFor="let item of groupC" value="{{item.id}}">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <button [disabled]="categoryformEdit.invalid" class="btn btn-success" type="submit">Update</button>
+      </div>
+    </div>
+  </form>
+</div>

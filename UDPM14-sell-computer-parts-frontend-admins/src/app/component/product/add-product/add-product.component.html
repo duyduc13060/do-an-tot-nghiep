@@ -1,0 +1,202 @@
+<div id="productAdd" class="mt-2">
+  <div>
+    <a [routerLink]="'/list-product'" class="btn btn-info mb-2 mt-2">List Products</a>
+  </div>
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+
+  <mat-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>
+        Add product
+      </ng-template>
+      <form [formGroup]="validateForm">
+        <div class="card">
+          <div class="card-header">
+            <h5>Create product</h5>
+          </div>
+
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group mt-2">
+                  <label for="">Name</label>
+                  <input type="text" [(ngModel)]="product.name" formControlName="name" class="form-control">
+                  <div *ngIf="validateForm.controls['name'].invalid && validateForm.controls['name'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['name'].errors?.['required']"> Name không được để trống</small>
+                    <small *ngIf="validateForm.controls['name'].errors?.['pattern']"> Name không đúng định dạng</small>
+                    <small *ngIf="validateForm.controls['name'].errors?.['minlength']"> Name phải lớn hơn 6 ký tự</small>
+                    <small *ngIf="validateForm.controls['name'].errors?.['maxlength']"> Name không được quá 244 ký
+                      tự</small>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label for="">Price</label>
+                  <input type="number" [(ngModel)]="product.price" formControlName="price" class="form-control">
+                  <div *ngIf="validateForm.controls['price'].invalid && validateForm.controls['price'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['price'].errors?.['required']"> Price không được để trống và phải đúng định dạng</small>
+                    <small *ngIf="validateForm.controls['price'].errors?.['pattern']"> Price không được để trống và phải đúng định dạng</small>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label for="">Quantity</label>
+                  <input type="number" [(ngModel)]="product.quantity"  formControlName="quantity" class="form-control">
+                  <div *ngIf="validateForm.controls['quantity'].invalid && validateForm.controls['quantity'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['quantity'].errors?.['required']"> Quantity không được để trống và phải đúng định dạng</small>
+                    <small *ngIf="validateForm.controls['quantity'].errors?.['pattern']"> Quantity không được để trống và phải đúng định dạng</small>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label for="">Discount</label>
+                  <input type="number" [(ngModel)]="product.discount" formControlName="discount"  class="form-control">
+                  <div *ngIf="validateForm.controls['discount'].invalid && validateForm.controls['discount'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['discount'].errors?.['required']"> Discount không được để trống và phải đúng định dạng</small>
+                    <small *ngIf="validateForm.controls['discount'].errors?.['pattern']"> Discount không được để trống và phải đúng định dạng</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group mt-2">
+                  <label for="">Code</label>
+                  <input type="text" [(ngModel)]="product.code" formControlName="code" class="form-control">
+                  <div *ngIf="validateForm.controls['code'].invalid && validateForm.controls['code'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['code'].errors?.['required']"> Code không được để trống</small>
+                    <small *ngIf="validateForm.controls['code'].errors?.['minlength']"> Code phải lớn hơn 6 ký tự</small>
+                    <small *ngIf="validateForm.controls['code'].errors?.['maxlength']"> Code không được quá 10 ký
+                      tự</small>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label for="">Status</label>
+                  <select class="form-select" [(ngModel)]="product.status"  formControlName="status"
+                    aria-label="Default select status">
+                    <option value="INACTIVE">Inactive</option>
+                    <option selected value="ACTIVE">Active</option>
+                    <option value="DELETED">Deleted</option>
+                  </select>
+                  <div *ngIf="validateForm.controls['status'].invalid && validateForm.controls['status'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['status'].errors?.['required']">Status không được để trống</small>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label for="">Brand</label>
+                  <select class="form-select" [(ngModel)]="product.brandId" formControlName="brandId"
+                    aria-label="Default select brand">
+                    <option *ngFor="let b of brand" value="{{b.id}}">{{b.brandName}}</option>
+                  </select>
+                  <div *ngIf="validateForm.controls['brandId'].invalid && validateForm.controls['brandId'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['brandId'].errors?.['required']">Brand không được để trống</small>
+                  </div>
+                </div>
+
+                <div class="form-group mt-2">
+                  <label>Category</label>
+                  <select class="form-select" [(ngModel)]="product.categoryId" formControlName="categoryId"
+                    aria-label="Default select categoryId">
+                    <option *ngFor="let cate of categories" value="{{cate.id}}">{{cate.name}}</option>
+                  </select>
+                  <div *ngIf="validateForm.controls['categoryId'].invalid && validateForm.controls['categoryId'].touched"
+                    class="text-danger">
+                    <small *ngIf="validateForm.controls['categoryId'].errors?.['required']">Category không được để
+                      trống</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Description</label>
+              <div class="form-floating">
+                <textarea class="form-control" [(ngModel)]="product.description" formControlName="description"
+                  placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Comments</label>
+              </div>
+            </div>
+
+          </div>
+          <div class="card-footer">
+
+          </div>
+        </div>
+      </form>
+      <div>
+        <!-- <button mat-button [disabled]="validateForm.invalid" class="btn btn-success mt-2" matStepperNext >Create and next</button> -->
+        <button mat-button [disabled]="validateForm.invalid" class="btn btn-success mt-2" matStepperNext >Next</button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <ng-template matStepLabel>
+        Add Images
+      </ng-template>
+      <form [formGroup]="imageformAdd" >
+
+        <div class="card">
+          <div class="card-header">
+            <h5>Create image</h5>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col">
+
+                <div class="text-center">
+                  <img [src]="preview" class="img-thumbnail w-25">
+                </div>
+
+                <div class="form-group mt-2">
+                  <div class="mb-3">
+                    <label class="form-label">Choosse file</label>
+                    <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
+                    <div *ngIf="imageformAdd.controls['file'].invalid && imageformAdd.controls['file'].touched"
+                      class="text-danger">
+                      <small *ngIf="imageformAdd.controls['file'].errors?.['required']"> File không được để trống</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group mt-2">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control" formControlName="name">
+                  <div *ngIf="imageformAdd.controls['name'].invalid && imageformAdd.controls['name'].touched"
+                      class="text-danger">
+                      <small *ngIf="imageformAdd.controls['name'].errors?.['required']"> Name không được để trống</small>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+          </div>
+        </div>
+      </form>
+      <div>
+        <button mat-button (click)="goBack(stepper)" class="btn btn-success mt-2">Back</button>
+        <button mat-button [disabled]="imageformAdd.invalid" matStepperNext class="btn btn-success mt-2">Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button (click)="goBack(stepper)" class="btn btn-success me-2">Back</button>
+        <button mat-button (click)="createProduct(stepper)" class="btn btn-danger me-2">Create</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

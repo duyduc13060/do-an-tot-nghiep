@@ -1,0 +1,232 @@
+<a [routerLink]="'/main'" mat-raised-button>List main</a>
+<p-toast position="top-right"></p-toast>
+<p-card>
+  <form action="" [formGroup]="groupForm" (ngSubmit)="editpsu()">
+    <p-toast position="top-right"></p-toast>
+    <div class="d-flex gap-3 row">
+        <div class="col col-lg-5">
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="socket">socket</label>
+        <input
+          mdbInput
+          type="text"
+          [(ngModel)]="main.socket"
+          formControlName="socket"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['socket'].invalid && groupForm.controls['socket'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['socket'].errors?.['required']"> socket không được để trống</small>
+          <small *ngIf="groupForm.controls['socket'].hasError('minlength')"> socket phải lớn hơn 1 ký tự </small>
+          <small *ngIf="groupForm.controls['socket'].hasError('maxlength')"> socket phải nhỏ hơn 5 ký tự </small>
+        </div>
+      </mdb-form-control>
+    </div>
+
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="slotRam">SlotRam</label>
+        <input
+          mdbInput
+          type="number"
+          [(ngModel)]="main.slotRam"
+          formControlName="slotRam"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['slotRam'].invalid && groupForm.controls['slotRam'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['slotRam'].errors?.['required']"> slotRam không được để trống</small>
+          <small *ngIf="groupForm.controls['slotRam'].errors?.['pattern']"> slotRam không đúng định dạng, phải là số từ 0-999</small>
+        </div>
+      </mdb-form-control>
+    </div>
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="ddr">Ddr</label>
+        <input
+          mdbInput
+          type="number"
+          [(ngModel)]="main.ddr"
+          formControlName="ddr"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['ddr'].invalid && groupForm.controls['ddr'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['ddr'].errors?.['required']"> Ddr không được để trống</small>
+          <small *ngIf="groupForm.controls['ddr'].errors?.['pattern']"> Ddr không đúng định dạng, phải là số từ 0-999</small>
+        </div>
+      </mdb-form-control>
+    </div>
+
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="busRam">BusRam</label>
+        <input
+          mdbInput
+          type="number"
+          [(ngModel)]="main.busRam"
+          formControlName="busRam"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['busRam'].invalid && groupForm.controls['busRam'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['busRam'].errors?.['required']"> busRam không được để trống</small>
+          <small *ngIf="groupForm.controls['busRam'].errors?.['pattern']"> busRam không đúng định dạng, phải là số từ 0-999</small>
+        </div>
+      </mdb-form-control>
+    </div>
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="slotM2">SlotM2</label>
+        <input
+          mdbInput
+          type="number"
+          [(ngModel)]="main.slotM2"
+          formControlName="slotM2"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['slotM2'].invalid && groupForm.controls['slotM2'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['slotM2'].errors?.['required']"> slotM2 không được để trống</small>
+          <small *ngIf="groupForm.controls['slotM2'].errors?.['pattern']"> slotM2 không đúng định dạng, phải là số từ 0-999</small>
+        </div>
+      </mdb-form-control>
+    </div>
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="slotData">slotData</label>
+        <input
+          mdbInput
+          type="number"
+          [(ngModel)]="main.slotData"
+          formControlName="slotData"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['slotData'].invalid && groupForm.controls['slotData'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['slotData'].errors?.['required']"> slotData không được để trống</small>
+          <small *ngIf="groupForm.controls['slotData'].errors?.['pattern']"> slotData không đúng định dạng, phải là số từ 0-999</small>
+        </div>
+      </mdb-form-control>
+    </div>
+
+
+
+
+      <div class="d-flex justify-content-between">
+      <button class="btn btn-primary btn-sm">Submit</button>
+    </div></div>
+    <div class="col col-lg-1"></div>
+    <div class="col col-lg-5">
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="">Choose Product <sup style="color: red; font-size: 15px; font-weight: bold;">*</sup></label>
+          <select
+            class="form-control"
+            (change)="changeGroup_pro($event)"
+            [(ngModel)]="groupSelect_pro"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option value="{{ item?.id }}" *ngFor="let item of product">
+              {{ item?.name }}
+            </option>
+          </select>
+          <div *ngIf="groupForm.controls['productId'].invalid && groupForm.controls['productId'].touched"
+          class="text-danger">
+          <small *ngIf="groupForm.controls['productId'].errors?.['required']">Product không được để trống</small>
+        </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="">Choose Ram <sup style="color: red; font-size: 15px; font-weight: bold;">*</sup></label>
+          <select
+            class="form-control"
+            (change)="changeGroup_ram($event)"
+            [(ngModel)]="groupSelect_ram"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option value="{{ item?.id }}" *ngFor="let item of ram">
+              {{ item?.id }}
+            </option>
+          </select>
+          <div *ngIf="groupForm.controls['ramId'].invalid && groupForm.controls['ramId'].touched"
+          class="text-danger">
+          <small *ngIf="groupForm.controls['ramId'].errors?.['required']">ram không được để trống</small>
+        </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="">Choose Hd <sup style="color: red; font-size: 15px; font-weight: bold;">*</sup></label>
+          <select
+            class="form-control"
+            (change)="changeGroup_hd($event)"
+            [(ngModel)]="groupSelect_hd"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option value="{{ item?.id }}" *ngFor="let item of hd">
+              {{ item?.id }}
+            </option>
+          </select>
+          <div *ngIf="groupForm.controls['hdId'].invalid && groupForm.controls['hdId'].touched"
+          class="text-danger">
+          <small *ngIf="groupForm.controls['hdId'].errors?.['required']">hd không được để trống</small>
+        </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="">Choose Chip <sup style="color: red; font-size: 15px; font-weight: bold;">*</sup></label>
+          <select
+            class="form-control"
+            (change)="changeGroup_chip($event)"
+            [(ngModel)]="groupSelect_chip"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option value="{{ item?.id }}" *ngFor="let item of chip">
+              {{ item?.id }}
+            </option>
+          </select>
+          <div *ngIf="groupForm.controls['chipId'].invalid && groupForm.controls['chipId'].touched"
+          class="text-danger">
+          <small *ngIf="groupForm.controls['chipId'].errors?.['required']">chip không được để trống</small>
+        </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <div class="form-group">
+          <label for="">Choose Vga <sup style="color: red; font-size: 15px; font-weight: bold;">*</sup></label>
+          <select
+            class="form-control"
+            (change)="changeGroup_vga($event)"
+            [(ngModel)]="groupSelect_vga"
+            [ngModelOptions]="{ standalone: true }"
+          >
+            <option value="{{ item?.id }}" *ngFor="let item of vga">
+              {{ item?.id }}
+            </option>
+          </select>
+          <div *ngIf="groupForm.controls['vgaId'].invalid && groupForm.controls['vgaId'].touched"
+          class="text-danger">
+          <small *ngIf="groupForm.controls['vgaId'].errors?.['required']">Vga không được để trống</small>
+        </div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <mdb-form-control>
+          <label mdbLabel class="form-label" for="size">Size</label>
+          <input
+            mdbInput
+            type="number"
+            [(ngModel)]="main.size"
+            formControlName="size"
+            class="form-control"
+          />
+          <div *ngIf="groupForm.controls['size'].invalid && groupForm.controls['size'].touched" class="text-danger">
+            <small *ngIf="groupForm.controls['size'].errors?.['required']"> size không được để trống</small>
+            <small *ngIf="groupForm.controls['size'].errors?.['pattern']"> size không đúng định dạng, phải là số từ 0-999</small>
+          </div>
+        </mdb-form-control>
+      </div>
+
+    </div>
+
+</div>
+  </form>
+</p-card>

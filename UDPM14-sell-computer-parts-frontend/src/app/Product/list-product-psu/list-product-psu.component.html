@@ -1,0 +1,52 @@
+<div class="row pb-3">
+  <!-- <div class="col-12 pb-1">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <form action="">
+        <div class="input-group">
+          <input type="text" class="form-control" name="title" placeholder="Search by name" [(ngModel)]="title" />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="searchTitle()">
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div> -->
+  <div *ngFor="let pro of productPsu | paginate : {
+    itemsPerPage: pageSize,
+    currentPage: page,
+    totalItems: count}" class="col-lg-4 col-md-6 col-sm-12 pb-1">
+    <div class="card product-item border-0 mb-4">
+      <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+        <img class="img-fluid w-100" src="{{ pro.imageLink }}" style="height: 300px;" alt="">
+      </div>
+      <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+        <h6 class="text-truncate mb-3">{{ pro.name }}</h6>
+        <div class="d-flex justify-content-center">
+          <h6 class="text-muted"><del>{{ pro.price | number  }} VND</del></h6>
+          <h6 class="text-danger ml-2">{{ pro.discount | number  }} VND</h6>
+        </div>
+        <div class="d-flex justify-content-center">
+          <h6 class="ml-2">Size: {{ pro.size }}</h6>
+          <h6 class="ml-2">Wattage: {{ pro.wattage }}</h6>
+        </div>
+      </div>
+      <div class="card-footer text-center justify-content-between bg-light border">
+        <a [routerLink]="['/product-detail', pro.productId]" class="btn border mr-3"><i
+            class="fas fa-eye text-primary"></i></a>
+        <a (click)="createFavourite(pro)" class="btn border mr-3"><i
+            class="fas fa-heart text-primary"></i></a>
+        <a (click)="addToCart(pro)" class="btn border">
+          <i class="fas fa-shopping-cart text-primary"></i></a>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-md-12">
+    <pagination-controls class="text-center" previousLabel="Prev" nextLabel="Next" [responsive]="true"
+      (pageChange)="handlePageChange($event)">
+    </pagination-controls>
+  </div> -->
+</div>
+
+

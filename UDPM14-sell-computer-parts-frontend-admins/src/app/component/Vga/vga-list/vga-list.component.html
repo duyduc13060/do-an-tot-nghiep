@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section>
+      <div class="row">
+        <div class="col-lg-3">
+          <aside>
+            <div class="card">
+              <div class="card-header">BRAND</div>
+              <div class="card-body">
+                <ul class="list-group" *ngFor="let br of vga">
+                  <li class="list-group-item">br.</li>
+                  <li class="list-group-item">A second item</li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div class="col-lg-9">
+          <article class="row">
+            <div col-lg-12>
+              <a [routerLink]="['/add-vga']" class="btn btn-success mb-2">Create VGA</a>
+            </div>
+            <div col-lg-12>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let vg of vga | paginate: {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: count}" >
+                    <td>{{ vg.Id }}</td>
+                    <td>{{ vg.name }}</td>
+                    <td>{{ vg.price }}</td>
+                    <td>{{ vg.quantity }}</td>
+                    <td class="row">
+                      <div col-lg-5>
+                        <a [routerLink]="['/edit-product/' + vg.id]"class="btn btn-secondary">edit</a>
+                      </div>
+                      <div col-lg-2></div>
+                      <div col-lg-5>
+                        <a (click)="confirmDeleteProduct(content, vg.id, vg.name) "class="btn btn-danger mx-2">delete</a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="text-danger">{{ confirmMessage }}</h5>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="deleteProduct()">Yes</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="c('Close click')"
+        >
+          No
+        </button>
+      </div>
+    </ng-template>
+  </body>
+</html>

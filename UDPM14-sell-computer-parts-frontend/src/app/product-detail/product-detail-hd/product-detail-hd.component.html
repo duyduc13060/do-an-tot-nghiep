@@ -1,0 +1,27 @@
+<!-- Shop Detail Start -->
+
+<div *ngFor="let pro of productHd" class="col-lg-7 pb-5">
+  <h3 class="font-weight-semi-bold"> {{ pro.name }} </h3>
+  <p class="mb-4"> {{ pro.pcle }}</p>
+  <p class="mb-4"> {{ pro.type }}</p>
+  <div class="d-flex justify-content">
+    <h5> Giá: </h5>
+    <h5 class="text-muted ml-2"><del>{{ pro.price | number  }} VND</del></h5>
+    <h5 class="font-weight-semi-bold mb-4 text-danger ml-2">{{ pro.discount | number  }} VND</h5>
+  </div>
+  <div class="d-flex justify-content">
+    <h5> Số Lượng: </h5>
+    <h5 class="font-weight-semi-bold mb-4 ml-2">{{ pro.quantity }}</h5>
+  </div>
+  <div class="d-flex align-items-center mb-4 pt-2">
+    <div class="d-flex align-items-center mb-4 pt-2">
+      <a (click)="createFavourite(pro)" class="btn btn-primary border mr-3"><i
+          class="fas fa-heart text-white"></i></a>
+      <a (click)="addToCart(pro)" class="btn btn-primary border">
+        <i class="fas fa-shopping-cart text-white"></i></a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Shop Detail End -->

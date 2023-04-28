@@ -1,0 +1,133 @@
+<div id="productAdd" class="mt-2">
+  <div>
+    <a [routerLink]="'/list-product'" class="btn btn-info mb-2 mt-2">List Products</a>
+  </div>
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+
+  <form [formGroup]="validateForm">
+
+    <div class="card">
+      <div class="card-header">
+        <h5>Update product</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <div class="form-group mt-2">
+              <label>Name</label>
+              <input type="text" [(ngModel)]="product.name" formControlName="name" class="form-control">
+              <div *ngIf="validateForm.controls['name'].invalid && validateForm.controls['name'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['name'].errors?.['required']"> Name không được để trống</small>
+                <small *ngIf="validateForm.controls['name'].errors?.['pattern']"> Name không đúng định dạng</small>
+                <small *ngIf="validateForm.controls['name'].errors?.['minlength']"> Name phải lớn hơn 6 ký tự</small>
+                <small *ngIf="validateForm.controls['name'].errors?.['maxlength']"> Name không được quá 244 ký tự</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Price</label>
+              <input type="number" [(ngModel)]="product.price" formControlName="price" class="form-control">
+              <div *ngIf="validateForm.controls['price'].invalid && validateForm.controls['price'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['price'].errors?.['required']"> Price không được để trống và phải đúng định dạng</small>
+                <small *ngIf="validateForm.controls['price'].errors?.['pattern']"> Price không được để trống và phải đúng định dạng</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Quantity</label>
+              <input type="number" [(ngModel)]="product.quantity" formControlName="quantity" class="form-control">
+              <div *ngIf="validateForm.controls['quantity'].invalid && validateForm.controls['quantity'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['quantity'].errors?.['required']"> Quantity không được để trống và phải đúng định dạng</small>
+                <small *ngIf="validateForm.controls['quantity'].errors?.['pattern']"> Quantity không được để trống và phải đúng định dạng</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Discount</label>
+              <input type="number" [(ngModel)]="product.discount" formControlName="discount" class="form-control">
+              <div *ngIf="validateForm.controls['discount'].invalid && validateForm.controls['discount'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['discount'].errors?.['required']"> Discount không được để trống và phải đúng định dạng</small>
+                <small *ngIf="validateForm.controls['discount'].errors?.['pattern']"> Discount không được để trống và phải đúng định dạng</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+
+            <div class="form-group mt-2">
+              <label>Code</label>
+              <input type="text" [(ngModel)]="product.code" formControlName="code" class="form-control">
+              <div *ngIf="validateForm.controls['code'].invalid && validateForm.controls['code'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['code'].errors?.['required']">Code không được để trống</small>
+                <small *ngIf="validateForm.controls['code'].errors?.['minlength']">Code phải lớn hơn 6 ký tự</small>
+                <small *ngIf="validateForm.controls['code'].errors?.['maxlength']">Code không được quá 10 ký tự</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Status</label>
+              <select class="form-select" [(ngModel)]="product.status" formControlName="status"
+                aria-label="Default select example">
+                <option value="INACTIVE">Inactive</option>
+                <option value="ACTIVE">Active</option>
+                <option value="DELETED">Deleted</option>
+              </select>
+              <div *ngIf="validateForm.controls['status'].invalid && validateForm.controls['status'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['status'].errors?.['required']">Status không được để trống</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label>Brand</label>
+              <select class="form-select" [(ngModel)]="product.brandId" formControlName="brandId"
+                aria-label="Default select example">
+                <option *ngFor="let b of brand" value="{{b.id}}">{{b.brandName}}</option>
+              </select>
+              <div *ngIf="validateForm.controls['brandId'].invalid && validateForm.controls['brandId'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['brandId'].errors?.['required']">Brand không được để trống</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label for="">Cateogry</label>
+              <select class="form-select" [(ngModel)]="product.categoryId"
+              formControlName="categoryId"
+                aria-label="Default select example">
+                <!-- <option value="{{product.id}}" selected>{{product.name}}</option> -->
+                <option *ngFor="let cate of categories" value="{{cate.id}}">{{cate.name}}</option>
+              </select>
+              <div *ngIf="validateForm.controls['categoryId'].invalid && validateForm.controls['categoryId'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['categoryId'].errors?.['required']">Category không được để
+                  trống</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mt-2">
+          <label>Description</label>
+          <div class="form-floating">
+            <textarea class="form-control" [(ngModel)]="product.description" formControlName="description"
+              placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Comments</label>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button [disabled]="validateForm.invalid" class="btn btn-success" (click)="updateProduct()" type="submit">Update</button>
+      </div>
+    </div>
+
+  </form>
+</div>

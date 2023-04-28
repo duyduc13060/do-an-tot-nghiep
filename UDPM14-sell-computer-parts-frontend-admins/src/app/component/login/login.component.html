@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <title></title>
+  <!-- <link rel="icon" type="image/x-icon" href="../../../assets/images/favicon.png"> -->
+
+  <meta name="description" content="" />
+
+
+</head>
+<body style="background: white">
+<div class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="/assets/images/logo.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <h3 class="text-center mb-3 text-primary"> Đăng Nhập </h3>
+        <form>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label">Tài Khoản<span class="text-danger">*</span></label>
+            <input type="text" name="username" [(ngModel)]="user.username" class="form-control form-control-lg" />
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label">Mật Khẩu<span class="text-danger">*</span></label>
+            <input type="password" name="password" [(ngModel)]="user.password" class="form-control form-control-lg" />
+          </div>
+
+          <div class="d-flex justify-content-around align-items-center mb-4">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" checked />
+              <label class="form-check-label"> Nhớ Mật Khẩu </label>
+            </div>
+            <a [routerLink]="['/forgotPassword']">Quên Mật Khẩu?</a>
+          </div>
+
+          <!-- Submit button -->
+          <div class="text-center">
+            <button (click)="submitForm()" class="btn btn-primary btn-lg btn-block">Đăng nhập</button>
+            <a [routerLink]="['/emailRegister']"> Chưa có tài khoản? </a>
+          </div>
+
+<!--          <div class="divider d-flex align-items-center my-4">-->
+<!--            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>-->
+<!--          </div>-->
+
+<!--          <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="#!" role="button">-->
+<!--            <i class="fab fa-facebook-f me-2"></i>Đăng Nhập Bằng Facebook-->
+<!--          </a>-->
+<!--          <a class="btn btn-primary btn-lg btn-block" style="background-color: #dd4b39" href="#!" role="button">-->
+<!--            <i class="fab fa-google me-2"></i>Đăng Nhập Bằng Google-->
+<!--          </a>-->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

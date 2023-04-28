@@ -1,0 +1,58 @@
+
+
+
+      <div class="col">
+
+
+
+        <div class="m-2">
+          <div class="card">
+
+
+            <p-table #dt [value]="reviewService" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="title">Title <p-sortIcon ></p-sortIcon></th>
+                        <th pSortableColumn="rating">Rating <p-sortIcon ></p-sortIcon></th>
+                        <th pSortableColumn="content">Content <p-sortIcon ></p-sortIcon></th>
+                        <th pSortableColumn="createDate">Create Date <p-sortIcon ></p-sortIcon></th>
+                        <th pSortableColumn="updateDate">Update Date <p-sortIcon ></p-sortIcon></th>
+                        <th pSortableColumn="product_id">Product ID <p-sortIcon ></p-sortIcon></th>
+                        <th pSortableColumn="user_id">User ID <p-sortIcon ></p-sortIcon></th>
+                        <th>Action</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-reviewService>
+                    <tr>
+                        <td>{{reviewService?.title}}</td>
+                      <td>{{reviewService?.rating}}</td>
+                        <td>{{reviewService?.content}}</td>
+                        <td>{{reviewService?.createDate}}</td>
+                        <td>{{reviewService?.updateDate}}</td>
+                        <td>{{reviewService?.product_id}}</td>
+                        <td>{{reviewService?.user_id}}</td>
+
+
+
+                        <td>
+                            <button [routerLink]="['/review/update/'+reviewService.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="flex align-items-center justify-content-between">
+                        In total there are {{reviewService ? reviewService?.length : 0 }}
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+
+        </div>
+    </div>
+
+

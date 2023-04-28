@@ -1,0 +1,71 @@
+<section>
+  <div class="row m-5">
+    <div>
+      <a [routerLink]="['/list-staff']" class="btn btn-primary mb-3"> List Staff </a>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Update Staff
+      </div>
+      <div class="card-body">
+        <form [formGroup]="validForm" action="">
+          <div class="form-group mt-3">
+            <label> Fullname </label>
+            <input formControlName="fullname" type="text" [(ngModel)]="staff.fullname" class="form-control" />
+            <div *ngIf="validForm.controls['fullname'].invalid && validForm.controls['fullname'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['fullname'].errors?.['required']"> fullname không được để trống</small>
+              <small *ngIf="validForm.controls['fullname'].hasError('minlength')"> fullname phải lớn hơn 6 ký tự </small>
+              <small *ngIf="validForm.controls['fullname'].hasError('maxlength')"> fullname phải nhỏ hơn 20 ký tự </small>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label> Username </label>
+            <input formControlName="username" type="text" [(ngModel)]="staff.username" class="form-control" />
+            <div *ngIf="validForm.controls['username'].invalid && validForm.controls['username'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['username'].errors?.['required']"> username không được để trống</small>
+              <small *ngIf="validForm.controls['username'].errors?.['pattern']"> username không đúng định dạng</small>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label> Password </label>
+            <input formControlName="password" type="password" [(ngModel)]="staff.password" class="form-control" />
+            <div *ngIf="validForm.controls['password'].invalid && validForm.controls['password'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['password'].errors?.['required']"> password không được để trống</small>
+              <small *ngIf="validForm.controls['password'].hasError('minlength')"> password phải lớn hơn 6 ký tự </small>
+              <small *ngIf="validForm.controls['password'].hasError('maxlength')"> password phải nhỏ hơn 18 ký tự </small>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label> Email </label>
+            <input formControlName="email" type="text" [(ngModel)]="staff.email" class="form-control" />
+            <div *ngIf="validForm.controls['email'].invalid && validForm.controls['email'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['email'].errors?.['required']"> email không được để trống</small>
+              <small *ngIf="validForm.controls['email'].errors?.['pattern']"> email không đúng định dạng</small>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label> Phone </label>
+            <input formControlName="phone" type="text" [(ngModel)]="staff.phone" class="form-control" />
+            <div *ngIf="validForm.controls['phone'].invalid && validForm.controls['phone'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['phone'].errors?.['required']"> phone không được để trống</small>
+              <small *ngIf="validForm.controls['phone'].errors?.['pattern']"> phone không đúng định dạng</small>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label> Address </label>
+            <textarea formControlName="address" type="text" [(ngModel)]="staff.address" class="form-control"> </textarea>
+            <div *ngIf="validForm.controls['address'].invalid && validForm.controls['address'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['address'].errors?.['required']"> address không được để trống</small>
+              <small *ngIf="validForm.controls['address'].hasError('minlength')"> address phải lớn hơn 6 ký tự </small>
+              <small *ngIf="validForm.controls['address'].hasError('maxlength')"> address phải nhỏ hơn 50 ký tự </small>
+            </div>
+          </div>
+        </form>
+        <button (click)="updateStaff()" [disabled]="validForm.invalid" class="btn btn-success mt-3"> Update </button>
+        <button (click)="reset()" class="btn btn-danger mt-3"> Reset </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+

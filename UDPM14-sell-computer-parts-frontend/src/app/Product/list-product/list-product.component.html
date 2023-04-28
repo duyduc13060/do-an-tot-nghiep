@@ -1,0 +1,140 @@
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100px">
+    <h1 class="font-weight-semi-bold text-uppercase">Our Shop</h1>
+  </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Shop Start -->
+<div class="container-fluid pt-5">
+  <div class="row px-xl-5">
+    <!-- Shop Sidebar Start -->
+    <div class="col-lg-3 col-md-12">
+      <!-- Price Start -->
+      <div class="border-bottom mb-4 pb-4">
+        <h5 class="font-weight-semi-bold mb-4">Mức giá</h5>
+        <form>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" class="custom-control-input" checked id="price-all">
+            <label class="custom-control-label" (click)="showAllProduct()" for="price-all">Tất cả</label>
+          </div>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByPrice7()" class="custom-control-input" id="price">
+            <label class="custom-control-label" for="price">Từ 0 - 500.000 VND</label>
+          </div>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByPrice1()" class="custom-control-input" id="price-1">
+            <label class="custom-control-label" for="price-1">Từ 500.000 VND - 1.000.000 VND</label>
+          </div>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByPrice2()" class="custom-control-input" id="price-2">
+            <label class="custom-control-label" for="price-2">Từ 1.000.000 VND - 5.000.000 VND</label>
+          </div>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByPrice3()" class="custom-control-input" id="price-3">
+            <label class="custom-control-label" for="price-3">Từ 5.000.000 VND - 10.000.000 VND</label>
+          </div>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByPrice4()" class="custom-control-input" id="price-4">
+            <label class="custom-control-label" for="price-4">Từ 10.000.000 VND - 15.000.000 VND</label>
+          </div>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByPrice5()" class="custom-control-input" id="price-5">
+            <label class="custom-control-label" for="price-5">Từ 15.000.000 VND - 20.000.000 VND</label>
+          </div>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByPrice6()" class="custom-control-input" id="price-6">
+            <label class="custom-control-label" for="price-6">Trên 20.000.000 VND</label>
+          </div>
+        </form>
+      </div>
+      <!-- Price End -->
+
+      <!-- Color Start -->
+      <div class="border-bottom mb-4 pb-4">
+        <h5 class="font-weight-semi-bold mb-4">Theo màu</h5>
+        <form>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="showAllProduct()" class="custom-control-input" checked id="color-all">
+            <label class="custom-control-label" for="color-all">Tất cả</label>
+          </div>
+          <div *ngFor="let color of colors"
+            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByColor(color)" class="custom-control-input" id="color-{{ color.id }}">
+            <label class="custom-control-label" for="color-{{ color.id }}">{{ color.colorName }}</label>
+          </div>
+        </form>
+      </div>
+      <!-- Color End -->
+
+      <!-- Brand Start -->
+      <div class="border-bottom mb-4 pb-4">
+        <h5 class="font-weight-semi-bold mb-4">Theo thương hiệu</h5>
+        <form>
+          <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="showAllProduct()" class="custom-control-input" checked id="brand-all">
+            <label class="custom-control-label" for="brand-all">All Brand</label>
+          </div>
+          <div *ngFor="let brand of brands"
+            class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+            <input type="checkbox" (click)="fillterByBrand(brand)" class="custom-control-input" id="brand-{{ brand.id }}">
+            <label class="custom-control-label" for="brand-{{ brand.id }}">{{ brand.brandName }}</label>
+          </div>
+        </form>
+      </div>
+      <!-- Brand End -->
+    </div>
+    <!-- Shop Sidebar End -->
+
+    <!-- Shop Product Start -->
+    <div class="col-lg-9 col-md-12">
+      <div class="row pb-3">
+        <div class="col-12 pb-1">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <form action="">
+              <div class="input-group">
+                <input type="text" class="form-control" name="title" placeholder="Tìm kiếm theo tên" [(ngModel)]="title" />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" (click)="searchTitle()">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngFor="let pro of filter | paginate : {itemsPerPage: pageSize, currentPage: page, totalItems: count}" class="col-lg-4 col-md-6 col-sm-12 pb-1">
+          <div class="card product-item border-0 mb-4">
+            <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+              <img class="img-fluid w-100" src="{{ pro.imageLink }}" style="height: 300px;" alt="">
+            </div>
+            <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+              <h6 class="text-truncate mb-3">{{ pro.name }}</h6>
+              <div class="d-flex justify-content-center">
+                <h6 class="text-muted"><del>{{ pro.price | number  }} VND</del></h6>
+                <h6 class="text-danger ml-2">{{ pro.discount | number  }} VND</h6>
+              </div>
+              <div class="d-flex justify-content-center">
+              </div>
+            </div>
+            <div class="card-footer text-center justify-content-between bg-light border">
+              <a [routerLink]="['/product-detail', pro.id]" class="btn border mr-3"><i
+                  class="fas fa-eye text-primary"></i></a>
+              <a (click)="createFavourite(pro)" class="btn border mr-3"><i class="fas fa-heart text-primary"></i></a>
+              <a (click)="addToCart(pro)" class="btn border">
+                <i class="fas fa-shopping-cart text-primary"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <pagination-controls class="text-center" previousLabel="Prev" nextLabel="Next" [responsive]="true"
+            (pageChange)="handlePageChange($event)">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+    <!-- Shop Product End -->
+  </div>
+</div>
+<!-- Shop End -->

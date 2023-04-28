@@ -1,0 +1,67 @@
+<div class="mt-5">
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+
+  <form [formGroup]="paymentform" (ngSubmit)="editPayment()">
+
+    <div class="card">
+
+      <div class="card-header">
+        <h5>edit Payment</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <div class="text-center">
+              <img [src]="img_url" class="img-thumbnail w-25" alt="...">
+            </div>
+
+            <div class="form-group mt-2">
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Choosse</label>
+                <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
+                <div *ngIf="paymentform.controls['file'].invalid && paymentform.controls['file'].touched"
+                  class="text-danger">
+                  <small *ngIf="paymentform.controls['file'].errors?.['required']"> Name không được để trống</small>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col">
+
+            <div class="form-group mt-4">
+              <label for="">Name</label>
+              <input type="text" class="form-control" [ngModel]="payment.name" formControlName="name">
+              <div *ngIf="paymentform.controls['name'].invalid && paymentform.controls['name'].touched"
+                class="text-danger">
+                <small *ngIf="paymentform.controls['name'].errors?.['required']"> Name không được để trống</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label for="">Description</label>
+              <textarea class="form-control" [ngModel]="payment.description" cols="20" rows="5" formControlName="description"></textarea>
+              <div *ngIf="paymentform.controls['description'].invalid && paymentform.controls['description'].touched"
+                class="text-danger">
+                <small *ngIf="paymentform.controls['description'].errors?.['required']"> description không được để trống</small>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button [disabled]="paymentform.invalid" class="btn btn-success" type="submit">Edit</button>
+        <a [routerLink]="['/list-payment']" class="btn btn-primary mx-3" >List payment</a>
+      </div>
+    </div>
+  </form>
+
+</div>

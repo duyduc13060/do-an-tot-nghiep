@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="Free HTML Templates" name="keywords" />
+  <meta content="Free HTML Templates" name="description" />
+</head>
+
+<body>
+  <!-- Topbar Start -->
+  <div class="sticky-top">
+    <div class="container-fluid bg-secondary">
+      <div class="row align-items-center py-3 px-xl-5">
+        <div class="col-lg-6 d-none d-lg-block">
+          <a href="" class="text-decoration-none">
+            <h1 class="m-0 display-5 font-weight-semi-bold">
+              <span class="font-weight-bold" style="color: rgb(73,165,158);">HWCOM</span>
+            </h1>
+          </a>
+        </div>
+        <div class="col-lg-6 col-6 text-right">
+          <a [routerLink]="['/listFavourite']">
+            <i class="fas fa-heart text-primary"></i>
+            <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger"> 0 </span>
+          </a>
+          <a [routerLink]="['/cart']">
+            <i class="fas fa-shopping-cart text-primary"></i>
+            <span class="top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ quantityCart }}</span>
+          </a>
+          <a [hidden]="getUser() !== null">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+              class="bi bi-person-circle text-primary mb-2 ml-2 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="['/login']">Đăng Nhập</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" [routerLink]="['/register']">Đăng Ký</a></li>
+            </ul>
+          </a>
+          <a [hidden]="getUser() === null">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+              class="bi bi-person-circle text-primary mb-2 ml-2 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>&ensp;{{ getUser() }}
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="['/changePassword']">Đổi Mật Khẩu</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" [routerLink]="['/updateProfile']">Cập Nhật Thông Tin Cá Nhân</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" [routerLink]="['/list-order']">Lịch Sử Mua Hàng</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" (click)="logout()">Đăng Xuất</a></li>
+            </ul>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-5">
+      <div class="border-top">
+        <div>
+          <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+            <a href="" class="text-decoration-none d-block d-lg-none">
+              <h1 class="m-0 display-5 font-weight-semi-bold">
+                <span class="font-weight-bold" style="color: rgb(73,165,158);">HWCOM</span>
+              </h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+              <div class="navbar-nav mr-auto py-0">
+                <a [routerLink]="['/home']" class="nav-item nav-link active">Trang Chủ</a>
+                <a [routerLink]="['/ListProduct']" class="nav-item nav-link">Sản phẩm</a>
+                <a class="nav-item nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Danh Mục Sản Phẩm </a>
+                <ul class="dropdown-menu">
+                  <div *ngFor="let group of groups">
+                    <li><a class="dropdown-item" (mouseover)="showCategoryByGroupId(group.id)">{{ group.name }}</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                  </div>
+                </ul>
+                <div *ngFor="let cateG of cateByGroupId" class="card card-body">
+                    <p [routerLink]="['/productCate', cateG.id]"> {{ cateG.name }} </p>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Navbar End -->
+
+  <router-outlet></router-outlet>
+  <lib-ng-toast></lib-ng-toast>
+
+  <!-- Footer Start -->
+  <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+    <div class="row px-xl-5 pt-5">
+      <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+        <a href="" class="text-decoration-none">
+          <h1 class="mb-4 display-5 font-weight-semi-bold">
+            <span class="font-weight-bold" style="color: rgb(73,165,158);">HWCOM</span>
+          </h1>
+        </a>
+        <p class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-geo-alt-fill text-primary mr-3" viewBox="0 0 16 16">
+            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+          </svg>123 Street, New York, USA
+        </p>
+        <p class="mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-envelope-fill text-primary mr-3" viewBox="0 0 16 16">
+            <path
+              d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+          </svg>info@example.com
+        </p>
+        <p class="mb-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-telephone-fill text-primary mr-3" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+          </svg>097 345 6789
+        </p>
+      </div>
+      <div class="col-lg-8 col-md-12">
+        <div class="row">
+          <div class="col-md-6 mb-5">
+            <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+            <div class="d-flex flex-column justify-content-start">
+              <a class="text-dark mb-2" [routerLink]="['/home']"><i class="fa fa-angle-right mr-2"></i>Home</a>
+              <a class="text-dark mb-2" [routerLink]="['/product']"><i class="fa fa-angle-right mr-2"></i>Shopping</a>
+              <a class="text-dark mb-2" [routerLink]="['/cart']"><i class="fa fa-angle-right mr-2"></i>Cart</a>
+              <a class="text-dark mb-2" [routerLink]="['/checkout']"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+              <a class="text-dark" [routerLink]="['/contact']"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+            </div>
+          </div>
+          <div class="col-md-6 mb-5">
+            <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+            <form action="">
+              <div class="form-group">
+                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control border-0 py-4" placeholder="Your Email" required="required" />
+              </div>
+              <div>
+                <button class="btn btn-primary btn-block border-0 py-3" type="submit">
+                  Subscribe Now
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer End -->
+
+</body>
+
+</html>

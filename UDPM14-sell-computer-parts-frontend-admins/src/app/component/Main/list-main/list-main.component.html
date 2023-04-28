@@ -1,0 +1,85 @@
+
+
+
+    <div class="col">
+      <div class="m-2">
+        <div class="card">
+          <p-toolbar styleClass="mb-4">
+              <a  [routerLink]="'/main/create/'"  class="btn btn-primary" >Add new</a>
+          </p-toolbar>
+
+          <p-table #dt [value]="main" [rows]="5" [paginator]="true"  responsiveLayout="scroll" [rowHover]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+
+              <ng-template pTemplate="header">
+                  <tr>
+
+                      <th   pSortableColumn="socket">Socket<p-sortIcon ></p-sortIcon></th>
+                      <th   pSortableColumn="slotRam"> SlotRam<p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="ddr">Ddr <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="busRam">BusRam <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="slotM2">SlotM2 <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="slotData">SlotData <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="size">Size <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="hdId">HdId <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="chipId">ChipId <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="productId">ProductId <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="vgaId">VgaId <p-sortIcon ></p-sortIcon></th>
+                      <th pSortableColumn="ramId">RamId <p-sortIcon ></p-sortIcon></th>
+
+
+                      <th>Action</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-main>
+                  <tr>
+
+                    <td>{{main?.socket}}</td>
+                    <td>{{main?.slotRam}}</td>
+                    <td >{{main?.ddr}}</td>
+                    <td >{{main?.busRam}}</td>
+                    <td >{{main?.slotM2}}</td>
+                    <td >{{main?.slotData}}</td>
+                    <td >{{main?.size}}</td>
+                    <td >{{main?.hdId}}</td>
+                    <td >{{main?.chipId}}</td>
+                    <td >{{main?.productId}}</td>
+                    <td >{{main?.vgaId}}</td>
+                    <td >{{main?.ramId}}</td>
+                      <td>
+                          <button [routerLink]="['/main/update/'+ main.id]" pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" ></button>
+                          <button (click)="confirmDeleteStaff(content, main.id)" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"  ></button>
+                      </td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                  <div class="flex align-items-center justify-content-between">
+                      In total there are {{main ? main?.length : 0 }}
+                  </div>
+              </ng-template>
+              <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title">Confirm</h4>
+                  <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h5 class="text-danger">{{confirmMessage}}</h5>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-success" (click)="deletehd()" >Yes</button>
+                  <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+                </div>
+              </ng-template>
+          </p-table>
+      </div>
+
+
+
+      </div>
+
+    </div>
+
+
+

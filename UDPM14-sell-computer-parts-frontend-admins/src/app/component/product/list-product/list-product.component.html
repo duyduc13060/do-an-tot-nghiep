@@ -1,0 +1,130 @@
+<div id="categoryAdd" class="mt-5">
+  <div class="row">
+    <div>
+      <a [routerLink]="['/add-product']" class="btn btn-info mb-2">Add new</a>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <div class="row mb-3">
+          <div class="col">
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm"
+                  (change)="filterByProduct($event)"/>
+              </div>
+              <div class="col">
+                <select class="form-select" (change)="filterProductByStatus($event)"
+                  aria-label="Default select example">
+                  <option selected>Lọc theo trạng thái</option>
+                  <option value="ACTIVE">ACTIVE</option>
+                  <option value="INACTIVE">INACTIVE</option>
+                  <option value="DELETED">DELTED</option>
+                </select>
+              </div>
+              <div class="col">
+                <select class="form-select" (change)="filter($event)" aria-label="Default2 select example">
+                  <option selected>Lọc theo thể loại</option>
+                  <option [value]="item.id" *ngFor="let item of categories">
+                    {{ item.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col">
+                <select  class="form-select" (change)="filter($event)" aria-label="Default2 select example">
+                  <option selected>Lọc theo danh mục</option>
+                  <option [value]="item.id"  *ngFor="let item of categories">
+                    {{ item.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col">
+                <select class="form-select w-25 float-end"
+                        (change)="handlePageSizeChange($event)">
+                  <option *ngFor="let size of pageSizes" [ngValue]="size">
+                    {{ size }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="table table-bordered">
+            <thead class="table__header">
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Discount</th>
+                <th class="w-10">Quantity</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Create date</th>
+                <th>Update date</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th class="w-25">Images</th>
+                <th colspan="3">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pro of products | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count}
+                  ">
+              <td>{{pro.code}}</td>
+              <td class="name">{{pro.name}}</td>
+              <td>{{pro.price | currency:'VND'}}</td>
+              <td>{{pro.discount}}%</td>
+              <td>{{pro.quantity}}</td>
+              <td>{{pro.categoryName}}</td>
+              <td>{{pro.brandName}}</td>
+              <td>{{pro.createDate | date: "dd/MM/yyyy"}}</td>
+              <td>{{pro.updateDate | date: "dd/MM/yyyy"}}</td>
+              <td>{{pro.description}}</td>
+              <td>{{pro.status}}</td>
+              <td>
+                <img src="{{pro.imageLink}}" class="img-fluid w-image" alt="">
+              </td>
+                <td>
+                  <!-- <button [routerLink]="['/review/create/' + pro.id]" pButton pRipple icon="pi pi-pencil"
+                    class="p-button-rounded p-button-primary "></button> -->
+
+                  <button [routerLink]="['/edit-product/' + pro.id]" pButton pRipple icon="pi pi-pencil"
+                    class="p-button-rounded p-button-success mr-2"></button>
+                  <button (click)="confirmDeleteProduct(content,pro.id,pro.name)" pButton pRipple icon="pi pi-trash"
+                    class="p-button-rounded p-button-warning"></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card-footer">
+          <div class="col-md-12">
+            <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+              (pageChange)="handlePageChange($event)">
+            </pagination-controls>
+          </div>
+        </div>
+
+      </div>
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirm</h4>
+          <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 class="text-danger">{{confirmMessage}}</h5>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="deleteProduct()">Yes</button>
+          <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

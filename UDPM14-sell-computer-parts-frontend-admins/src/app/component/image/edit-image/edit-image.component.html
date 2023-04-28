@@ -1,0 +1,66 @@
+<div id="chipAdd" class="mt-5">
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+
+  <form [formGroup]="imageformEdit" (ngSubmit)="updateImage()">
+
+    <div class="card">
+      <div class="card-header">
+        <h5>Update image</h5>
+      </div>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col">
+
+            <div class="text-center">
+              <img [src]="preview" class="img-thumbnail w-25" alt="...">
+            </div>
+
+            <div class="form-group mt-2">
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Choosse file</label>
+                <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
+                <div *ngIf="imageformEdit.controls['file'].invalid && imageformEdit.controls['file'].touched"
+                  class="text-danger">
+                  <small *ngIf="imageformEdit.controls['file'].errors?.['required']"> File không được để trống</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group mt-2">
+              <label for="">Name</label>
+              <input type="text" class="form-control" [ngModel]="image.name" formControlName="name">
+              <div *ngIf="imageformEdit.controls['name'].invalid && imageformEdit.controls['name'].touched"
+                class="text-danger">
+                <small *ngIf="imageformEdit.controls['name'].errors?.['required']"> Name không được để trống</small>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <label for="">Product</label>
+              <select class="form-select" [ngModel]="image.productId" formControlName="product_id"
+                aria-label="Default select example">
+                <option *ngFor="let item of products" value="{{item.id}}">{{item.name}}</option>
+              </select>
+              <div *ngIf="imageformEdit.controls['product_id'].invalid && imageformEdit.controls['product_id'].touched"
+                class="text-danger">
+                <small *ngIf="imageformEdit.controls['product_id'].errors?.['required']"> Product không được để
+                  trống</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-success" type="submit">Update</button>
+      </div>
+
+    </div>
+
+  </form>
+</div>

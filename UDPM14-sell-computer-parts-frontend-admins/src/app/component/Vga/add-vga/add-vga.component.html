@@ -1,0 +1,53 @@
+<div id="VgaAdd">
+  <form #addVgaForm = "ngForm">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Add new VGA</h4>
+        <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row mx-2 mb-2">
+          <div class="form-group mt-2">
+
+            <div>Type</div>
+            <input type="text" [(ngModel)]="vga.type" name="type" class="form-control">
+            <div *ngIf="validateForm.controls['name'].invalid && validateForm.controls['name'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['name'].errors?.['required']"> Type không được để trống</small>
+                <small *ngIf="validateForm.controls['name'].errors?.['minlength']"> Type phải lớn hơn 6 ký tự</small>
+                <small *ngIf="validateForm.controls['name'].errors?.['maxlength']"> Type không được quá 20 ký
+                  tự</small>
+              </div>
+          </div>
+          <div class="form-group mt-2">
+
+            <div>Size</div>
+            <input type="text" [(ngModel)]="vga.size" name="size" class="form-control">
+            <div *ngIf="validateForm.controls['name'].invalid && validateForm.controls['name'].touched"
+                class="text-danger">
+                <small *ngIf="validateForm.controls['name'].errors?.['required']"> Type không được để trống</small>
+                <small *ngIf="validateForm.controls['name'].errors?.['minlength']"> Type phải lớn hơn 6 ký tự</small>
+                <small *ngIf="validateForm.controls['name'].errors?.['maxlength']"> Type không được quá 20 ký
+                  tự</small>
+              </div>
+          </div>
+          <div class="form-group mt-2">
+
+            <div>Product</div>
+            <select class="form-select" [(ngModel)]="vga.productId" name="productId" >
+              <option *ngFor="let pro of products" [value]="pro.id">{{pro.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="createVga()">Create</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+      </div>
+    </ng-template>
+    <button class="btn btn-success mb-2" (click)="open(content)">Add new vga</button>
+  </form>
+</div>

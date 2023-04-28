@@ -1,0 +1,49 @@
+<section>
+  <div class="row m-5">
+    <div>
+      <a [routerLink]="['/list-favourite']" class="btn btn-primary mb-3"> List Favourite </a>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Create Favourite
+      </div>
+      <div class="card-body">
+        <form [formGroup]="validForm">
+          <div class="row mx-2 mb-2">
+            <div class="form-group mt-2">
+              <div>Like Date</div>
+              <div class="form-control"> {{ likeDate | date: "dd/MM/yyyy - hh:mm:ss - a" }} </div>
+            </div>
+            <div class="form-group mt-2">
+              <div>Product</div>
+              <select class="form-select" [(ngModel)]="fav.productId" formControlName="productId">
+                <option *ngFor="let pro of pros" [value]="pro.id">
+                  {{pro.name}}
+                </option>
+              </select>
+              <div *ngIf="validForm.controls['productId'].invalid && validForm.controls['productId'].touched"
+                class="text-danger">
+                <small *ngIf="validForm.controls['productId'].errors?.['required']"> Product không được để trống
+                </small>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <div>Account</div>
+              <select class="form-select" [(ngModel)]="fav.accountId" formControlName="accountId">
+                <option *ngFor="let acc of accs" [value]="acc.id">
+                  {{acc.fullname}}
+                </option>
+              </select>
+              <div *ngIf="validForm.controls['accountId'].invalid && validForm.controls['accountId'].touched"
+                class="text-danger">
+                <small *ngIf="validForm.controls['accountId'].errors?.['required']"> Account không được để trống
+                </small>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button (click)="createFavourite()" [disabled]="validForm.invalid" class="btn btn-success mt-3"> Create </button>
+      </div>
+    </div>
+  </div>
+</section>

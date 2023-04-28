@@ -1,0 +1,97 @@
+<a [routerLink]="'/Review/list'" mat-raised-button> Review</a>
+<p-toast position="top-right"></p-toast>
+<p-card>
+  <form action="" [formGroup]="groupForm" (ngSubmit)="editcolor()">
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="title">Title</label>
+        <input
+          mdbInput
+          type="text"
+          [(ngModel)]="review.title"
+          formControlName="title"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['title'].invalid && groupForm.controls['title'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['title'].errors?.['required']"> title không được để trống</small>
+          <small *ngIf="groupForm.controls['title'].hasError('minlength')"> title phải lớn hơn 6 ký tự </small>
+          <small *ngIf="groupForm.controls['title'].hasError('maxlength')"> title phải nhỏ hơn 50 ký tự </small>
+        </div>
+      </mdb-form-control>
+    </div>
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="rating">Rating</label>
+        <input
+          mdbInput
+          type="text"
+          [(ngModel)]="review.rating"
+          formControlName="rating"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['rating'].invalid && groupForm.controls['rating'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['rating'].errors?.['required']"> title không được để trống</small>
+          <small *ngIf="groupForm.controls['rating'].errors?.['pattern']"> rating không đúng định dạng, phải là số từ 1-5</small>
+        </div>
+      </mdb-form-control>
+    </div>
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="content">Content</label>
+        <input
+          mdbInput
+          type="text"
+          [(ngModel)]="review.content"
+          formControlName="content"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['content'].invalid && groupForm.controls['content'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['content'].errors?.['required']"> content không được để trống</small>
+          <small *ngIf="groupForm.controls['content'].hasError('minlength')"> content phải lớn hơn 6 ký tự </small>
+          <small *ngIf="groupForm.controls['content'].hasError('maxlength')"> content phải nhỏ hơn 50 ký tự </small>
+        </div>
+      </mdb-form-control>
+    </div>
+
+    <div class="mb-4">
+      <div class="form-group">
+        <label for="">Choose Product</label>
+        <select
+          class="form-control"
+          (change)="changeGroup($event)"
+          [(ngModel)]="groupSelect"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <option value="{{ item?.id }}" *ngFor="let item of product">
+            {{ item?.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <div class="form-group">
+        <label for=""> User</label>
+        <select
+          class="form-control"
+          (change)="changeGroup_user($event)"
+          [(ngModel)]="groupSelect_user"
+          [ngModelOptions]="{ standalone: true }"
+          disabled="true"
+        >
+          <option value="{{ item?.id }}" *ngFor="let item of user">
+            {{ item?.username }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+
+
+
+      <div class="d-flex justify-content-between">
+      <button class="btn btn-primary btn-sm">Submit</button>
+    </div>
+  </form>
+</p-card>

@@ -1,0 +1,86 @@
+<section class="vh-100">
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <form [formGroup]="userFormEdit" (ngSubmit)="update()">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+          <div class="col-md-8 col-lg-7 col-xl-6">
+            <img [src]="preview" class="rounded-circle text-center" alt="..." style="width: 400px;">
+            <div class="form-group mt-2">
+              <div class="mb-3">
+                <input class="form-control" type="file" formControlName="file" (change)="onFileChange($event)">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <h3 class="text-center mb-3 text-primary"> Cập Nhật Thông Tin Cá Nhân </h3>
+            <div class="form-outline mb-4">
+              <label class="form-label">Họ và Tên<span class="text-danger">*</span></label>
+
+              <input type="text" [(ngModel)]="user.fullname"  formControlName="fullname"
+                class="form-control form-control-lg" />
+
+              <div *ngIf="userFormEdit.controls['fullname'].invalid && userFormEdit.controls['fullname'].touched"
+                class="text-danger">
+                <small *ngIf="userFormEdit.controls['fullname'].errors?.['required']"> Họ và tên không được để trống
+                </small>
+                <small *ngIf="userFormEdit.controls['fullname'].hasError('minlength')"> Họ và tên phải lớn hơn 5 ký tự
+                </small>
+                <small *ngIf="userFormEdit.controls['fullname'].hasError('maxlength')"> Họ và tên phải nhỏ hơn 20 ký tự
+                </small>
+              </div>
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label">Email<span class="text-danger">*</span></label>
+
+              <input  type="text" [(ngModel)]="user.email" formControlName="email"
+                class="form-control form-control-lg" />
+
+              <div *ngIf="userFormEdit.controls['email'].invalid && userFormEdit.controls['email'].touched"
+                class="text-danger">
+                <small *ngIf="userFormEdit.controls['email'].errors?.['required']"> Email không được để trống </small>
+                <small *ngIf="userFormEdit.controls['email'].errors?.['pattern']"> Email không đúng ký tự </small>
+              </div>
+
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label">Số Điện Thoại<span class="text-danger">*</span></label>
+
+              <input type="text" [(ngModel)]="user.phone" formControlName="phone"
+                class="form-control form-control-lg" />
+
+              <div *ngIf="userFormEdit.controls['phone'].invalid && userFormEdit.controls['phone'].touched"
+                class="text-danger">
+                <small *ngIf="userFormEdit.controls['phone'].errors?.['required']"> Số điện thoại không được để trống
+                </small>
+                <small *ngIf="userFormEdit.controls['phone'].errors?.['pattern']"> Số điện thoại không đúng ký tự </small>
+              </div>
+
+            </div>
+            <div class="form-outline mb-4">
+              <label class="form-label">Địa Chỉ<span class="text-danger">*</span></label>
+
+              <input type="text" [(ngModel)]="user.address" formControlName="address"
+                class="form-control form-control-lg" />
+
+              <div *ngIf="userFormEdit.controls['address'].invalid && userFormEdit.controls['address'].touched"
+                class="text-danger">
+                <small *ngIf="userFormEdit.controls['address'].errors?.['required']"> Địa chỉ không được để trống </small>
+                <small *ngIf="userFormEdit.controls['address'].hasError('minlength')"> Địa chỉ phải lớn hơn 6 ký tự
+                </small>
+                <small *ngIf="userFormEdit.controls['address'].hasError('maxlength')"> Địa chỉ phải nhỏ hơn 100 ký tự
+                </small>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Cập Nhật Thông Tin</button>
+            <a  class="btn btn-success btn-lg btn-block">Quay Lại</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

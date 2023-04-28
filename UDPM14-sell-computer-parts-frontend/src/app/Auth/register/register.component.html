@@ -1,0 +1,62 @@
+<section class="vh-100">
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner-border text-primary spinner-center" role="status">
+    </div>
+  </div>
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="/assets/img/logo.png" class="img-fluid" alt="">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <h3 class="text-center mb-3 text-primary"> Đăng Ký Tài Khoản </h3>
+        <form [formGroup]="validForm">
+          <div class="form-outline mb-4">
+            <label class="form-label">Họ và Tên<span class="text-danger">*</span></label>
+            <input formControlName="fullname" [(ngModel)]="user.fullname" type="text" class="form-control form-control-lg" />
+            <div *ngIf="validForm.controls['fullname'].invalid && validForm.controls['fullname'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['fullname'].errors?.['required']"> Họ và tên không được để trống </small>
+              <small *ngIf="validForm.controls['fullname'].errors?.['pattern']"> Họ và tên không đúng ký tự </small>
+              <small *ngIf="validForm.controls['fullname'].hasError('minlength')"> Họ và tên phải lớn hơn hoặc bằng 6 ký tự </small>
+              <small *ngIf="validForm.controls['fullname'].hasError('maxlength')"> Họ và tên phải nhỏ hơn hoặc bằng 20 ký tự </small>
+            </div>
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label">Tên Tài Khoản<span class="text-danger">*</span></label>
+            <input formControlName="username" [(ngModel)]="user.username" type="text" class="form-control form-control-lg" />
+            <div *ngIf="validForm.controls['username'].invalid && validForm.controls['username'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['username'].errors?.['required']"> Tên tài khoản không được để trống </small>
+              <small *ngIf="validForm.controls['username'].errors?.['pattern']"> Tên tài khoản không đúng ký tự </small>
+              <small *ngIf="validForm.controls['username'].hasError('minlength')"> Tên tài khoản phải lớn hơn hoặc bằng 6 ký tự </small>
+              <small *ngIf="validForm.controls['username'].hasError('maxlength')"> Tên tài khoản phải nhỏ hơn hoặc bằng 20 ký tự </small>
+            </div>
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label">Mật Khẩu<span class="text-danger">*</span></label>
+            <input formControlName="pass" [(ngModel)]="pass" type="password" class="form-control form-control-lg" />
+            <div *ngIf="validForm.controls['pass'].invalid && validForm.controls['pass'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['pass'].errors?.['required']"> Mật khẩu không được để trống </small>
+              <small *ngIf="validForm.controls['pass'].hasError('minlength')"> Mật khẩu phải lớn hơn hoặc bằng 6 ký tự </small>
+              <small *ngIf="validForm.controls['pass'].hasError('maxlength')"> Mật khẩu phải nhỏ hơn hoặc bằng 18 ký tự </small>
+            </div>
+          </div>
+
+          <div class="form-outline mb-4">
+            <label class="form-label">Nhập Lại Mật Khẩu<span class="text-danger">*</span></label>
+            <input formControlName="password" [(ngModel)]="user.password" type="password" class="form-control form-control-lg" />
+            <div *ngIf="validForm.controls['password'].invalid && validForm.controls['password'].touched" class="text-danger">
+              <small *ngIf="validForm.controls['password'].errors?.['required']"> Mật khẩu không được để trống </small>
+              <small *ngIf="validForm.controls['password'].hasError('minlength')"> Mật khẩu phải lớn hơn hoặc bằng 6 ký tự </small>
+              <small *ngIf="validForm.controls['password'].hasError('maxlength')"> Mật khẩu phải nhỏ hơn hoặc bằng 18 ký tự </small>
+            </div>
+          </div>
+
+          <button [disabled]="validForm.invalid" (click)="register()"  class="btn btn-primary btn-lg btn-block">Đăng ký</button>
+          <button (click)="comeBack()" class="btn btn-success btn-lg btn-block">Quay Lại</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<div id="chipAdd">
+  <form #addChipForm = "ngForm">
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Add new Chip</h4>
+        <button type="button" class="close" aria-label="close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row mx-2 mb-2">
+          <div class="form-group mt-2">
+            <div>Socket</div>
+            <input type="text" [(ngModel)]="chip.socket" name="socket" class="form-control">
+          </div>
+          <div class="form-group mt-2">
+            <div>Product</div>
+            <select class="form-select" [(ngModel)]="chip.productId" name="productId" >
+              <option *ngFor="let pro of products" [value]="pro.id">
+                {{pro.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="createChip()">Create</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">No</button>
+      </div>
+    </ng-template>
+    <button class="btn btn-success mb-2" (click)="open(content)">Add new chip</button>
+  </form>
+</div>

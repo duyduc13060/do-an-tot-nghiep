@@ -1,0 +1,66 @@
+<a [routerLink]="'/psu'" mat-raised-button>List psu</a>
+<p-toast position="top-right"></p-toast>
+<p-card>
+  <form action="" [formGroup]="groupForm" (ngSubmit)="editpsu()">
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="size">size</label>
+        <input
+          mdbInput
+          type="text"
+          [(ngModel)]="psu.size"
+          formControlName="size"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['size'].invalid && groupForm.controls['size'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['size'].errors?.['required']"> size không được để trống</small>
+          <small *ngIf="groupForm.controls['size'].hasError('minlength')"> size phải lớn hơn 1 ký tự </small>
+          <small *ngIf="groupForm.controls['size'].hasError('maxlength')"> size phải nhỏ hơn 5 ký tự </small>
+        </div>
+      </mdb-form-control>
+    </div>
+    <div class="mb-4">
+      <mdb-form-control>
+        <label mdbLabel class="form-label" for="wattage">wattage</label>
+        <input
+          mdbInput
+          type="number"
+          [(ngModel)]="psu.wattage"
+          formControlName="wattage"
+          class="form-control"
+        />
+        <div *ngIf="groupForm.controls['wattage'].invalid && groupForm.controls['wattage'].touched" class="text-danger">
+          <small *ngIf="groupForm.controls['wattage'].errors?.['required']"> size không được để trống</small>
+          <small *ngIf="groupForm.controls['wattage'].hasError('minlength')"> size phải lớn hơn 1 ký tự </small>
+          <small *ngIf="groupForm.controls['wattage'].hasError('maxlength')"> size phải nhỏ hơn 5 ký tự </small>
+        </div>
+      </mdb-form-control>
+    </div>
+
+
+    <div class="mb-3">
+      <div class="form-group">
+        <label for="">Choose Product</label>
+        <select
+          class="form-control"
+          (change)="changeGroup($event)"
+          [(ngModel)]="groupSelect"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <option value="{{ item?.id }}" *ngFor="let item of product">
+            {{ item?.name }}
+          </option>
+        </select>
+        <div *ngIf="groupForm.controls['productId'].invalid && groupForm.controls['productId'].touched"
+        class="text-danger">
+        <small *ngIf="groupForm.controls['productId'].errors?.['required']">Product không được để trống</small>
+      </div>
+      </div>
+    </div>
+
+
+      <div class="d-flex justify-content-between">
+      <button class="btn btn-primary btn-sm">Submit</button>
+    </div>
+  </form>
+</p-card>
